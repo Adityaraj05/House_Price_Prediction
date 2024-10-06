@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='images/house.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat; 
+            height: 100vh;
+            color: black; /* Set default text color to white for contrast */
+        }
+        .container {
+        background-color: #ececea; /* Dark background for container */
+        padding: 30px;
+        border-radius: 10px;
+        margin-top: 50px;
+        max-width: 600px; /* Limit the width for better readability */
+        margin-left: auto; /* Center container */
+        margin-right: auto; /* Center container */
+        backdrop-filter: blur(20px); /* Adjust blur effect */
+        -webkit-backdrop-filter: blur(2px); /* For Safari support */
+        box-shadow: 0 4px 15px rgba(108, 70, 70, 0.3); /* Optional: Add shadow for depth */
+        }
+
+        h1 {
+            color: #0f0f0f; /* Light color for headings */
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #1f9b14; /* Keep red for subheadings */
+            margin-top: 30px;
+        }
+        button.btn-primary {
+            background-color: #4e5960; /* Change button color for visibility */
+            border: none; /* Remove border */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>House Price Prediction</h1>
+        <form action="/predict" method="POST">
+            {% for feature in feature_columns %}
+            <div class="form-group">
+                <label for="{{ feature }}">{{ feature }}</label>
+                <input type="number" class="form-control" id="{{ feature }}" name="{{ feature }}" required>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-block">Predict Price</button>
+        </form>
+
+        {% if prediction_text %}
+            <h2>{{ prediction_text }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>
